@@ -1,0 +1,38 @@
+{
+    "mqtt": {
+        "server": {
+            "local": {
+                "_comment": "Haupt (lokaler) MQTT-Server, damit auch bei Netzwerkausfall die Steuerung funktioniert",
+                "address": "localhost",
+                "port": "1883"
+            },
+            "remote": {
+                "_comment": "Remote MQTT-Server, für Anzeige und Fernsteuerung",
+                "address": "10.10.10.189",
+                "port": "1883"
+            }
+        }
+    },
+    "modules": {
+        "w1thermsensor": {
+            "imports": [],
+            "functions": {
+                "get-value": "GetValue_W1ThermSensor"
+            }
+        }
+    },
+    "sensors": {
+        "temperature_inside": {
+            "type": "DS18B20",
+            "id": "01205f3d587e",
+            "module": "w1thermsensor"
+        },
+        "temperature_outside": {
+            "type": "DS18B20",
+            "id": "01205f136d8b",
+            "module": "w1thermsensor"
+        },
+        "humidity_inside": {},
+        "humidity_outside": {}
+    }
+}
