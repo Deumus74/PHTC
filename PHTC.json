@@ -1,38 +1,99 @@
 {
     "mqtt": {
         "server": {
-            "local": {
-                "_comment": "Haupt (lokaler) MQTT-Server, damit auch bei Netzwerkausfall die Steuerung funktioniert",
-                "address": "localhost",
-                "port": "1883"
-            },
-            "remote": {
-                "_comment": "Remote MQTT-Server, für Anzeige und Fernsteuerung",
-                "address": "10.10.10.189",
-                "port": "1883"
-            }
-        }
-    },
-    "modules": {
-        "w1thermsensor": {
-            "imports": [],
-            "functions": {
-                "get-value": "GetValue_W1ThermSensor"
-            }
+            "_comment": "Remote MQTT-Server, for display and remote control",
+            "address": "10.10.10.189",
+            "port": "1883"
         }
     },
     "sensors": {
-        "temperature_inside": {
-            "type": "DS18B20",
-            "id": "01205f3d587e",
-            "module": "w1thermsensor"
+        "1-wire": {
+            "_comment": "new sensors are entered independently by the script",
+            "26-03000084e5af": {
+                "type": "ds2438",
+                "module": "ds2438",
+                "function": {
+                    "name": "GetValue",
+                    "parameters": {
+                        "id": "26-03000084e5af"
+                    }
+                },
+                "testmode": false,
+                "description": "inside (red)",
+                "values": {
+                    "temperature": {
+                        "max": {
+                            "value": 11,
+                            "actuator": "cooling fan",
+                            "threshold": 2,
+                            "referenceValue": {
+                                "sensor": {
+                                    "type": "1-wire",
+                                    "id": "26-03000084e5b0",
+                                    "value": "temperature"
+                                },
+                                "if": "lower"
+                            }
+                        },
+                        "min": {
+                            "value": 5,
+                            "actuator": "heater",
+                            "threshold": 2
+                        },
+                        "testfile": "/home/pi/PHTC/testvalues/26-03000084e5af_temperature.txt"
+                    },
+                    "humidity": {
+                        "max": {
+                            "value": 77,
+                            "actuator": "dehumidification fan",
+                            "threshold": 2,
+                            "referenceValue": {
+                                "sensor": {
+                                    "type": "1-wire",
+                                    "id": "26-03000084e5b0",
+                                    "value": "humidity"
+                                },
+                                "if": "lower"
+                            }
+                        },
+                        "testfile": "/home/pi/PHTC/testvalues/26-03000084e5af_humidity.txt"
+                    }
+                }
+            },
+            "26-03000084e5b0": {
+                "type": "ds2438",
+                "module": "ds2438",
+                "function": {
+                    "name": "GetValue",
+                    "parameters": {
+                        "id": "26-03000084e5b0"
+                    }
+                },
+                "testmode": false,
+                "description": "outside (blue)",
+                "values": {
+                    "temperature": {
+                        "testfile": "/home/pi/PHTC/testvalues/26-03000084e5b0_temperature.txt"
+                    },
+                    "humidity": {
+                        "testfile": "/home/pi/PHTC/testvalues/26-03000084e5b0_humidity.txt"
+                    }
+                }
+            }
+        }
+    },
+    "actuators": {
+        "heater": {
+            "gpio": 11,
+            "description": ""
         },
-        "temperature_outside": {
-            "type": "DS18B20",
-            "id": "01205f136d8b",
-            "module": "w1thermsensor"
+        "cooling fan": {
+            "gpio": 13,
+            "description": ""
         },
-        "humidity_inside": {},
-        "humidity_outside": {}
+        "dehumidification fan": {
+            "gpio": 15,
+            "description": ""
+        }
     }
 }
