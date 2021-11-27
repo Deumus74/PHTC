@@ -23,7 +23,7 @@
                 "values": {
                     "temperature": {
                         "max": {
-                            "value": 11,
+                            "value": 20,
                             "actuator": "cooling fan",
                             "threshold": 2,
                             "referenceValue": {
@@ -36,7 +36,7 @@
                             }
                         },
                         "min": {
-                            "value": 5,
+                            "value": 7,
                             "actuator": "heater",
                             "threshold": 2
                         },
@@ -44,7 +44,7 @@
                     },
                     "humidity": {
                         "max": {
-                            "value": 77,
+                            "value": 99,
                             "actuator": "dehumidification fan",
                             "threshold": 2,
                             "referenceValue": {
@@ -84,15 +84,22 @@
     },
     "actuators": {
         "heater": {
-            "gpio": 11,
+            "gpio": [
+                11,
+                37
+            ],
             "description": ""
         },
         "cooling fan": {
-            "gpio": 13,
+            "gpio": [
+                13
+            ],
             "description": ""
         },
         "dehumidification fan": {
-            "gpio": 15,
+            "gpio": [
+                15
+            ],
             "description": ""
         }
     }
