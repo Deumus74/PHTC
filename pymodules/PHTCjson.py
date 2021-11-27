@@ -79,7 +79,7 @@ def updateJson1Wire(jsonFile, jsonDict):
 
         return result
 
-
+    writeJsonBool = False
     oneWireAdresses = getOneWireAddresses()
     oneWire = jsonDict['sensors']['1-wire']
     onewireKeys = list(oneWire.keys())
@@ -90,5 +90,7 @@ def updateJson1Wire(jsonFile, jsonDict):
                 "module": "",
                 "description": ""
             }
-    writeJson(jsonFile, jsonDict)
+            writeJsonBool = True
+    if writeJsonBool:
+        writeJson(jsonFile, jsonDict)
     return jsonDict
