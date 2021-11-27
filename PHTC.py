@@ -94,6 +94,7 @@ global module
 module = {}
 
 # initialize GPIOs
+logging.info("")
 logging.info("#### START SCRIPT ####")
 
 try:
@@ -171,28 +172,36 @@ try:
                                                 referenceValue = referenceValue[referenceSensorValueName]
                                                 if referenceIf == "lower":
                                                     if value[valueKey] > maxValue and referenceValue < value[valueKey]:
+                                                        logging.info("compare " + actuatorName + ": " + str(value[valueKey]) + " > " + str(maxValue) + "(maxValue)")
+                                                        logging.info("and     " + actuatorName + ": " + str(referenceValue) + "(refValue)" + " < " + str(value[valueKey]))
                                                         for gpio in actuatorGpio:
                                                             logging.info("switch on: " + actuatorName + "(GPIO " + str(gpio) + ")")
                                                             GPIO.output(gpio, GPIO.HIGH)
                                                     else:
+                                                        logging.info("compare " + actuatorName + ": " + str(value[valueKey]) + " <= " + str(maxValue) + "(maxValue)")
                                                         for gpio in actuatorGpio:
                                                             logging.info("switch off: " + actuatorName + "(GPIO " + str(gpio) + ")")
                                                             GPIO.output(gpio, GPIO.LOW)
                                                 elif referenceIf == "higher":
                                                     if value[valueKey] > maxValue and referenceValue > value[valueKey]:
+                                                        logging.info("compare " + actuatorName + ": " + str(value[valueKey]) + " > " + str(maxValue) + "(maxValue)")
+                                                        logging.info("and     " + actuatorName + ": " + str(referenceValue) + "(refValue)" + " > " + str(value[valueKey]))
                                                         for gpio in actuatorGpio:
                                                             logging.info("switch on: " + actuatorName + "(GPIO " + str(gpio) + ")")
                                                             GPIO.output(gpio, GPIO.HIGH)
                                                     else:
+                                                        logging.info("compare " + actuatorName + ": " + str(value[valueKey]) + " <= " + str(maxValue) + "(maxValue)")
                                                         for gpio in actuatorGpio:
                                                             logging.info("switch off: " + actuatorName + "(GPIO " + str(gpio) + ")")
                                                             GPIO.output(gpio, GPIO.LOW)
                                         else:
                                             if value[valueKey] > maxValue:
+                                                logging.info("compare " + actuatorName + ": " + str(value[valueKey]) + " > " + str(maxValue) + "(maxValue)")
                                                 for gpio in actuatorGpio:
                                                     logging.info("switch on: " + actuatorName + "(GPIO " + str(gpio) + ")")
                                                     GPIO.output(gpio, GPIO.HIGH)
                                             else:
+                                                logging.info("compare " + actuatorName + ": " + str(value[valueKey]) + " <= " + str(maxValue) + "(maxValue)")
                                                 for gpio in actuatorGpio:
                                                     logging.info("switch off: " + actuatorName + "(GPIO " + str(gpio) + ")")
                                                     GPIO.output(gpio, GPIO.LOW)
@@ -215,28 +224,36 @@ try:
                                                 referenceValue = referenceValue[referenceSensorValueName]
                                                 if referenceIf == "lower":
                                                     if value[valueKey] < minValue and referenceValue < value[valueKey]:
+                                                        logging.info("compare " + actuatorName + ": " + str(value[valueKey]) + " < " + str(minValue) + "(minValue)")
+                                                        logging.info("and     " + actuatorName + ": " + str(referenceValue) + "(refValue)" + " < " + str(value[valueKey]))
                                                         for gpio in actuatorGpio:
                                                             logging.info("switch on: " + actuatorName + "(GPIO " + str(gpio) + ")")
                                                             GPIO.output(gpio, GPIO.HIGH)
                                                     else:
+                                                        logging.info("compare " + actuatorName + ": " + str(value[valueKey]) + " >= " + str(minValue) + "(minValue)")
                                                         for gpio in actuatorGpio:
                                                             logging.info("switch off: " + actuatorName + "(GPIO " + str(gpio) + ")")
                                                             GPIO.output(gpio, GPIO.LOW)
                                                 elif referenceIf == "higher":
                                                     if value[valueKey] < minValue and referenceValue > value[valueKey]:
+                                                        logging.info("compare " + actuatorName + ": " + str(value[valueKey]) + " < " + str(minValue) + "(minValue)")
+                                                        logging.info("and     " + actuatorName + ": " + str(referenceValue) + "(refValue)" + " > " + str(value[valueKey]))
                                                         for gpio in actuatorGpio:
                                                             logging.info("switch on: " + actuatorName + "(GPIO " + str(gpio) + ")")
                                                             GPIO.output(gpio, GPIO.HIGH)
                                                     else:
                                                         for gpio in actuatorGpio:
+                                                            logging.info("compare " + actuatorName + ": " + str(value[valueKey]) + " >= " + str(minValue) + "(minValue)")
                                                             logging.info("switch off: " + actuatorName + "(GPIO " + str(gpio) + ")")
                                                             GPIO.output(gpio, GPIO.LOW)
                                         else:
                                             if value[valueKey] < minValue:
+                                                logging.info("compare " + actuatorName + ": " + str(value[valueKey]) + " < " + str(minValue) + "(minValue)")
                                                 for gpio in actuatorGpio:
                                                     logging.info("switch on: " + actuatorName + "(GPIO " + str(gpio) + ")")
                                                     GPIO.output(gpio, GPIO.HIGH)
                                             else:
+                                                logging.info("compare " + actuatorName + ": " + str(value[valueKey]) + " >= " + str(minValue) + "(minValue)")
                                                 for gpio in actuatorGpio:
                                                     logging.info("switch off: " + actuatorName + "(GPIO " + str(gpio) + ")")
                                                     GPIO.output(gpio, GPIO.LOW)
